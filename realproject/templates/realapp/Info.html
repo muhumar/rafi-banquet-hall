@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+    <head>
+        <title>Rafi Banquet Hall| Bookings </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+
+        <link rel="stylesheet" href="{% static 'css/booking1.css' %}" type="text/css" media="all" />
+        <link rel="stylesheet" href="{% static 'css/employee.css' %}" type="text/css" media="all" />
+        <link rel="stylesheet" href="{% static 'css/form.css' %}" type="text/css" media="all" />
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="all" />
+
+
+        <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css" media="all" />
+        <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}" type="text/css" media="all">
+        <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
+
+
+        <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.js' %}"></script>
+        <script src="{% static 'js/Cal.js' %}"></script>
+        <script src="{% static 'js/time.js' %}"></script>
+
+
+    </head>
+    <body>
+
+    <div id="Events_Expenses" class="modal fade" role="dialog"  data-backdrop='static'>
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Events Expenses</h4>
+                    </div>
+                    <div class="container">
+                        <div class="modal-body">
+
+                            <div class="col-md-7 expense-form">
+                                <div class="form-container">
+                                    {% for event in event_list %}
+                                    <form action="/add_event_expense/{{event.event_id}}/" method="post">
+                                        <input type="text" name="title" placeholder="Title" required="" value="">
+                                        <input type="number" min="0" class="email" name="amount" placeholder="Amount" required=""><div class="clearfix"></div>
+                                        <textarea placeholder="Details" name="details" required=""></textarea><div class="clearfix"></div>
+                                        {% endfor %}
+                                        <div class="row">
+                                            <div class="col-sm-offset-3 col-sm-4">
+                                                <input type="submit" class="btn-block" value="SUBMIT">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button data-toggle="modal" class="btn btn-default cancel-btn"
+                                data-dismiss="modal">Cancel </button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+
+        <div id="Daily_Expenses" class="modal fade" role="dialog"  data-backdrop='static'>
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Daily Expenses</h4>
+                    </div>
+                    <div class="container">
+                        <div class="modal-body">
+
+                            <div class="col-md-7 expense-form">
+                                <div class="form-container">
+                                    <form action="{% url 'realapp:add_daily_expense' %}" method="post">
+                                        <input type="text" name="date" value="{{expense_date}}" placeholder="Date" required="">
+                                        <br><br>
+                                         <input type="text" name="expense_title" value="{{expense_title}}" placeholder="Title" required="">
+                                        <input type="number" min="0" class="email" name="expense_amount" value="{{expense_amount}}" placeholder="Amount" required=""><div class="clearfix"></div>
+                                        <textarea placeholder="Details" name="details" required=""></textarea><div class="clearfix"></div>
+                                        <div class="row">
+                                            <div class="col-sm-offset-3 col-sm-4">
+                                                <input type="submit" class="btn-block" value="SUBMIT">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-default cancel-btn" href="{% url 'realapp:Gen_Expense' %}">View All</a>
+                        <button data-toggle="modal" class="btn btn-default cancel-btn"
+                                data-dismiss="modal">Cancel </button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <!-- banner -->
+        <div class="banner-top jarallax">
+            <div class="header-top">
+                <div class="container">
+                    <div class="header-top-grids">
+                        <div class="header-top-left">
+                            <p><i class="fa fa-volume-control-phone" aria-hidden="true"></i> 042-3854712</p>
+                        </div>
+                        <div class="header-top-right">
+                            <div class="social-grids">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                </div>
+            </div>
+            <div class="head">
+                <div class="container">
+                    <div class="navbar-top">
+
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <div class="navbar-brand logo ">
+                                <h1><a href="{% url 'index' %}">Rafi<span>Banquet Hall</span></a></h1>
+                            </div>
+
+                        </div>
+
+
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav link-effect-4">
+                                <br><br>
+                                <li class="first-list"><a href="{% url 'index' %}">Home</a> </li>
+                                <li class="first-list"><a href="{% url 'realapp:ereport' %}">report</a> </li>
+                                <li><a href="{% url 'realapp:Events' %}">Events</a></li>
+                                <li><a href="{% url 'realapp:gallery' %}">Gallery</a></li>
+                                <li class="active"><a href="{% url 'realapp:about' %}">Bookings</a> </li>
+
+                                <li >
+                                    <a href="{% url 'realapp:Gen_Expense' %}" >Expenses</a></li>
+                                <li><a href="{% url 'realapp:employee' %}">Employees</a></li>
+                                <li><a href="{% url 'realapp:contact' %}">Contact</a></li>
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </div>
+                </div>
+            </div>
+            <div class="agileinfo-banner">
+                <div class="container">
+                    <h2>Bookings</h2><br><br><br>
+                </div>
+            </div>
+        </div>
+        <!-- //banner -->
+
+        <!-- about -->
+        <div class="booking-top">
+            <div class="info">
+                <h2 style="text-align:center; color:white;">Event Details</h2>
+            </div>
+
+            <div class="container">
+                <div class="booking-info">
+                    <h2></h2>
+
+                    <div class="w3layoutscontactagileits">
+                        <div class="row">
+
+                            <form method="post" action="{% url 'realapp:update_form' %}">
+                                <!--{{ form.as_table }}-->
+                              <div class="col-md-6">
+                                    {% for event in event_list %}
+                                  <input type="text" name="event_id" placeholder="Event ID" required="" value="{{event.event_id}}" hidden>
+                                    <div class="wthreename agileinfow3ls">
+                                        <div class="wthreename-lable wthreelable">
+                                            <label>Event No</label><span class="colon">:</span>
+                                        </div>
+                                        <div class="wthreename-input wthreeinput">
+                                            <input class="top" type="Number" name="event_no" min="0" placeholder="" required="" value="{{event.event_no}}">
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+
+
+                                    <div class="wthreename agileinfow3ls">
+                                        <div class="wthreename-lable wthreelable">
+
+                                            <label >Name</label><span class="colon">:</span>
+                                        </div>
+                                        <div class="wthreename-input wthreeinput">
+                                            <input class="top" type="text" name="event_cust_name" placeholder="Name" required="" value="{{event.event_cust_name}} ">
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                    <div class="agileemailinfo agileinfow3ls">
+                                        <div class="agileemailinfo-lable wthreelable">
+                                            <label>Email</label><span class="colon">:</span>
+                                        </div>
+                                        <div class="agileemailinfo-input wthreeinput">
+                                            <input class="top" type="email" name="event_cust_email" placeholder="Email" value="{{event.event_cust_email}}">
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                    <div class="aitsphonew3ls agileinfow3ls">
+                                        <div class="aitsphonew3ls-lable wthreelable">
+                                            <label>CNIC</label><span class="colon">:</span>
+                                        </div>
+                                        <div class="aitsphonew3ls-input wthreeinput">
+                                            <input style="width:250px" class="agilecode" type="number" title="CNIC (Format: 352XX-9191XXXX-4" name="event_cust_nic" required="" maxlength="20" value="{{event.event_cust_nic}}">
+                                            <!--<label class="aitsnumber">&#45;&#45;</label>-->
+                                            <!--<input class="wthreeland" type="number" name="CNIC-2" required="">-->
+                                            <!--<label class="aitsnumber">&#45;&#45;</label>-->
+                                            <!--<input class="agilecode" type="number"  name="CNIC-3" required="">-->
+
+                                            <h3>And</h3>
+                                            <label>Mobile Number</label>
+                                            <input class="agileinfomobile" type="number" title="Phone Number (Format: 03XX-111XXXX)" name="event_cust_contactno" required="" value="{{event.event_cust_contactno}}"><br>
+
+											<label>Mobile Number</label>
+                                            <input class="agileinfomobile" type="number" title="Phone Number (Format: 03XX-111XXXX)" name="event_cust_contactno2" required="" value="{{event.event_cust_contactno2}}">
+
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                    <div class="wthreename agileinfow3ls">
+                                        <div class="wthreename-lable wthreelable">
+                                            <label>Total Guests:</label><span class="colon">:</span>
+                                        </div>
+                                        <div class="wthreename-input wthreeinput">
+                                        <input class="top" type="Number" name="event_total_guests" min="0" placeholder="" required="" value="{{event.event_total_guests}}">
+
+                                        <label class="aitsnumber">Total Expense</label>
+                                        <input class="wthreeland" type="number" name="event_total_expense" required="" value="{{event.event_total_expense}}" disabled>
+
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                    <div class="aitsphonew3ls agileinfow3ls">
+                                        <div class="aitsphonew3ls-lable wthreelable">
+                                            <label>Amount</label><span class="colon">:</span>
+                                        </div>
+                                        <div class="aitsphonew3ls-input wthreeinput">
+                                            <input class="agilecode" type="number"  name="event_total_amount" required="" maxlength="10" value="0">
+
+                                            <label class="aitsnumber">Amount Paid</label>
+                                            <input class="wthreeland" type="number" name="event_advance" required="" value="{{event.event_advance}}">
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="wthreename agileinfow3ls">
+
+                                        <div class="wthreename-input wthreeinput">
+
+                                        <label class="aitsnumber">Total Payable Amount<span class="colon"> :</span></label>
+                                        <input class="wthreeland" type="number" name="event_total_expense" required="" value="{{event.event_total_amount}}">
+
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                  <div class="wthreename agileinfow3ls">
+
+                                        <div class="wthreename-input wthreeinput">
+
+                                        <label class="aitsnumber">Remaining Payable Amount<span class="colon"> :</span></label>
+                                        <input class="wthreeland" type="number" name="event_total_expense" required="" value="{{event.remaining}}" disabled>
+
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+
+
+                                    <div class="aitspickupaddress agileinfow3ls">
+                                        <div class="aitspickupaddress-lable wthreelable">
+                                            <span class="agilepickup-lable">
+                                                <label>Payment</label>
+                                                <label>Details</label>
+                                            </span>
+                                            <span class="colon">:</span>
+                                        </div>
+                                        <div class="aitspickupaddress-input wthreeinput">
+                                            <textarea name="event_payment_details" required="" value="{{event.event_payments_details}}">{{event.event_payments_details}}</textarea>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="agileinfodeparture agileinfow3ls">
+                                        <div class="agileinfodeparture-lable wthreelable">
+                                            <span class="lable">
+                                                <label>Booking</label>
+                                                <label>Date</label>
+                                            </span>
+                                            <span class="colon">:</span>
+                                        </div>
+                                        <div class="agileinfodeparture-input wthreeinput">
+                                            <input formaction="" class="date agileits w3layouts" type="text" name="event_booking_date" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" required="" value="{{event.event_booking_date}}">
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+
+                                    <div class="agileinforeturn agileinfow3ls">
+                                        <div class="agileinforeturn-lable wthreelable">
+                                            <span class="aitsreturn-lable">
+                                                <label>Function</label>
+                                                <label>Date</label>
+                                            </span>
+                                            <span class="colon">:</span>
+                                        </div>
+                                        <div class="agileinforeturn-input wthreeinput">
+                                            <input class="date agileits w3layouts" id="datepicker2" name="event_date" type="text" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" required="" value="{{event.event_date}}" onclick="myfunction({{my_list}})">
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+
+                                    <div class="w3lsjourneyaits agileinfow3ls">
+                                        <div class="w3lsjourneyaits-lable wthreelable">
+                                            <span class="aitsjourney-lable">
+                                                <label>Hall</label>
+                                            </span>
+                                            <span class="colon">:</span>
+                                        </div>
+                                        <div class="w3lsjourneyaits-input wthreeinput">
+                                                <select name="event_hall">
+                                                {% if event.event_hall == 'A' %}
+                                                <option value="A" selected>A</option>
+                                                <option value="B">B</option>
+                                                {% endif %}
+                                                {% if event.event_hall == 'B' %}
+                                                <option value="A">A</option>
+                                                <option value="B" selected>B</option>
+
+                                                {% endif %}
+                                                </select>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                    <div class="w3lsjourneyaits agileinfow3ls">
+                                        <div class="w3lsjourneyaits-lable wthreelable">
+                                            <span class="aitsjourney-lable">
+                                                <label>Time</label>
+                                            </span>
+                                            <span class="colon">:</span>
+                                        </div>
+                                        <div class="w3lsjourneyaits-input wthreeinput">
+                                            <select name="event_slot" onchange="otherTime(this)">
+                                                {% if event.event_slot == '14:00:00' %}
+                                                <option value="14:00:00" selected>14:00:00</option>
+                                                <option value="18:00:00">18:00:00</option>
+                                                <option value="3" class="othertime">Other</option>
+                                                {% elif event.event_slot == '18:00:00'%}
+                                                <option value="14:00:00">14:00:00</option>
+                                                <option value="18:00:00" selected>18:00:00</option>
+                                                <option value="3" class="othertime">Other</option>
+                                                {% else %}
+                                                <option value="14:00:00">14:00:00</option>
+                                                <option value="18:00:00">18:00:00</option>
+                                                <option value="3" class="othertime" selected>Other  {{event.event_slot}}</option>
+                                                {% endif %}
+                                            </select>
+                                            <input class="agilecode" id="other_time" type="text"  name="other_time" value="{{event.event_slot}}">
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                    <div class="aitsdestinationaddress agileinfow3ls">
+                                        <div class="aitsdestinationaddress-lable wthreelable">
+                                            <span class="agiledest-lable">
+                                                <label>Other</label>
+                                                <label>Details</label>
+                                            </span>
+                                            <span class="colon">:</span>
+                                        </div>
+                                        <div class="aitsdestinationaddress-input wthreeinput">
+                                            <textarea name="event_other_details" placeholder="Details.." required="">{{event.event_details}}</textarea>
+                                        </div>
+                                        {% endfor %}
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <br>
+                                    {% for event in event_list %}
+                                    <a href="/Expenses/{{event.event_id}}/" data-toggle="modal" class="btn-md attendance-btn pull-right" style="margin-left:10px;'">View All Expenses</a>
+                                    {% endfor %}
+                                    <a href="#Events_Expenses" data-toggle="modal" class="btn-md attendance-btn pull-right">Add Expense</a>
+
+                                </div>
+
+                                 <div class="clearfix"> </div>
+                                 <div class="heading-border"></div><br>
+
+                                <div class="col-sm-10 col-sm-offset-1 ">
+                                    <div class="list-group arrangements-wrapper-2" id="list1">
+
+                                        <a href="#" class="list-group-item active" id="backcolor">Arrangements<input title="toggle all" type="checkbox" class="all pull-right"><span class="pull-right markall">Mark-All</span></a>
+
+
+                                        {% for arrange in event_arrangement_list %}
+                                        <a href="#" class="list-group-item record">{{arrange.arrange_title}}<input type="checkbox" class="pull-right" name="checkbox[]" value="{{arrange.arrange_id}}"></a>
+                                        {% endfor %}
+                                        {% if event_arrangement_list1 %}
+                                        {% for event in event_arrangement_list1 %}
+                                        <a href="#" class="list-group-item record">{{event.arrange_title}}<input type="checkbox" class="pull-right" name="checkbox[]" value="{{event.arrange_id}}" checked></a>
+                                        {% endfor %}
+                                        {% endif %}
+
+                                        {% if special_arrangement %}
+                                        {% for i in special_arrangement %}
+                                        <div class="anar">Anaar<input type="number" name="quantity" value="{{i.quantity}}" class="pull-right anari" style="color:black; border:1px solid black; width:40px; margin-right:4px; height:14px; margin-top:2px;"></div>
+                                        {% endfor %}
+                                        {% else %}
+                                        <div class="anar">Anaar<input type="number" name="quantity" class="pull-right anari" style="color:black; border:1px solid black; width:40px; margin-right:4px; height:14px; margin-top:2px;" ></div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="clearfix"> </div>
+                                    <div class="heading-border"></div>
+                                    <div class="clearfix"> </div>
+
+                                </div>
+                                <div class="col-sm-10 col-sm-offset-1">
+                                    <div class="list-group" id="list1">
+
+                                         <a href="#" class="list-group-item active" id="backcolor">Menus<input title="toggle all" type="checkbox" class="all pull-right"><span class="pull-right markall">Select One</span></a>
+                                        {% if event_menu_list1 %}
+                                        {% for menu in event_menu_list %}
+                                        {% for event in event_menu_list1 %}
+                                        {% if menu.menu_id == event.event_menu_id %}
+                                        <a href="#" class="list-group-item record">{{ menu.menu_details }}<input type="checkbox" class="pull-right menu" onclick="Calculate2()" name="menu_list1[]" value="{{menu.menu_id}}" data-menu="{{menu.menu_cost_perhead}}" checked></a>
+                                        {% else %}
+                                        <a href="#" class="list-group-item record">{{ menu.menu_details }}<input type="checkbox" class="pull-right menu" onclick="Calculate2()" name="menu_list1[]" value="{{menu.menu_id}}" data-menu="{{menu.menu_cost_perhead}}"></a>
+                                        {% endif %}
+                                        {% endfor %}
+                                        {% endfor %}
+                                        {% else %}
+                                        {% for menu in event_menu_list %}
+                                        <a href="#" class="list-group-item record">{{ menu.menu_details }}<input type="checkbox" class="pull-right menu" onclick="Calculate2()" name="menu_list1[]" value="{{menu.menu_id}}" data-menu="{{menu.menu_cost_perhead}}"></a>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="clearfix"> </div>
+                                    <div class="heading-border"></div>
+                                </div>
+
+                                <div class="clearfix"></div>
+                                <div class="clearfix"></div>
+
+                                <div class="aitssubmitw3ls">
+                                    <input type="submit" name="update" value="UPDATE" class="pull-left">
+                                    <input type="submit" name="delete" value="DELETE" class="pull-left " style="margin-left:20px;">
+                                    <input type="submit" name="conclude" value="CONCLUDE" class="pull-right">
+                                </div>
+
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!--{% if messages %}-->
+<!--<ul class="messages">-->
+    <!--{% for message in messages %}-->
+    <!--<li>{{ message }}</li>-->
+    <!--{% endfor %}-->
+<!--</ul>-->
+<!--{% endif %}-->
+
+        <!-- footer -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer_grids">
+                    <div class="col-md-4 footer_grid">
+                        <h3>About Us</h3>
+                        <p>Rafi Banquet Hall is providing catering for your parties and weddings in Lahore , Pakistan. We specialize in weddings, parties, corporate events and much more</p>.
+                        <p>Our experienced team is instilled with values of integrity, trust, dedication and most importantly a love for what we do. Let us make your next event everything you dream of and more.</p>
+                    </div>
+
+                    <div class="col-md-4 footer_grid">
+                        <h3>Contact Info</h3>
+                        <ul>
+                            <li><i class="fa fa-map-marker" aria-hidden="true"></i> Clark Abbad Road near Govt.Hospital Kot Radha Kishen <span>Lahore, Pakistan.</span></li>
+                            <li><i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:rafibanquet16@gmail.com">rafibanquet16@gmail.com</a></li>
+                            <li><i class="fa fa-phone" aria-hidden="true"></i> 042-3854712</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 footer_grid footer_grid1">
+                        <h3>Navigation</h3>
+                        <ul>
+                            <li><i class="fa fa-angle-right" aria-hidden="true"></i> <a href="about.html">About</a></li>
+                            <li><i class="fa fa-angle-right" aria-hidden="true"></i> <a href="blog.html">Blog</a></li>
+                            <li><i class="fa fa-angle-right" aria-hidden="true"></i> <a href="icons.html">Icons</a></li>
+                            <li><i class="fa fa-angle-right" aria-hidden="true"></i> <a href="codes.html">Short Codes</a></li>
+                            <li><i class="fa fa-angle-right" aria-hidden="true"></i> <a href="gallery.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+        <!-- //footer -->
+
+        <!-- copyright -->
+        <div class="copyright">
+            <div class="container">
+                <p>© 2018 Rafi Banquet Hall. All rights reserved | Design by <a href="www.blendcodes.com">BlendCodes Technologies</a></p>
+            </div>
+        </div>
+        <!-- //copyright -->
+
+
+        <script type="text/javascript" src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+
+        <!-- Date-Picker-JavaScript -->
+        <script src="{% static 'js/jquery-ui.js' %}"></script>
+        <script>
+            $(function() {
+                $( "#datepicker2" ).datepicker();
+            });
+        </script>
+        <!-- //Date-Picker-JavaScript -->
+
+        <!-- //Necessary-JavaScript-Files-&-Links -->
+		<script type="text/javascript">
+		var d = new Date();
+
+		var datestring = d.getDate()  + "-" + (d.getMonth()+1) + "-" + d.getFullYear() + " " +
+		d.getHours() + ":" + d.getMinutes();
+		document.getElementById('datepicker1').value = datestring;
+		</script>
+
+        <script src="{% static 'js/jarallax.js' %}"></script>
+        <script src="{% static 'js/SmoothScroll.min.js' %}"></script>
+        <script type="text/javascript">
+
+            /* init Jarallax */
+            $('.jarallax').jarallax({
+                speed: 0.5,
+                imgWidth: 1366,
+                imgHeight: 768
+            })
+
+        </script>
+        <script type="text/javascript" src="{% static 'js/easing.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/move-top.js' %}"></script>
+
+        <!-- here stars scrolling icon -->
+        <script type="text/javascript">
+            $(document).ready(function() {
+                /*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear'
+				};
+			*/
+
+                $().UItoTop({ easingType: 'easeOutQuart' });
+
+            });
+        </script>
+        <!-- //here ends scrolling icon -->
+
+    </body>
+</html>

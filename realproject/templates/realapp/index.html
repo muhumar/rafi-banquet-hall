@@ -1,0 +1,657 @@
+
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html lang="en">
+    <head>
+
+        <title>Rafi Banquet Hall</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+
+        <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css" media="all" />
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="all" />
+
+        <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
+
+
+        <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.js' %}"></script>
+
+
+
+    </head>
+    <body>
+
+        <div id="Daily_Expenses" class="modal fade" role="dialog"  data-backdrop='static'>
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Daily Expenses</h4>
+                    </div>
+                    <div class="container">
+                        <div class="modal-body">
+
+                            <div class="col-md-7 expense-form">
+                                <div class="form-container">
+                                    <form action="{% url 'realapp:add_daily_expense' %}" method="post">
+                                        <input type="text" name="date" value="{{expense_date}}" placeholder="Date" required="">
+                                        <br><br>
+                                         <input type="text" name="expense_title" value="{{expense_title}}" placeholder="Title" required="">
+                                        <input type="number" min="0" class="email" name="expense_amount" value="{{expense_amount}}" placeholder="Amount" required=""><div class="clearfix"></div>
+                                        <textarea placeholder="Details" name="details" required=""></textarea><div class="clearfix"></div>
+                                        <div class="row">
+                                            <div class="col-sm-offset-3 col-sm-4">
+                                                <input type="submit" class="btn-block" value="SUBMIT">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-default cancel-btn" href="{% url 'realapp:Gen_Expense' %}">View All</a>
+                         <button data-toggle="modal" class="btn btn-default cancel-btn"
+                           data-dismiss="modal">Cancel </button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div id="Info" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title text-center" ><span class="firebrick">Zohaib Weds Annie</span></h4>
+                    </div>
+                    <div class="container">
+                        <div class="modal-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h5><span class="firebrick">Event date:</span> 17th Nov, 2017</h5>
+                                        <p class="info-p"><small><span class="firebrick">Name:</span> <div class="info-div" contenteditable="true" spellcheck="false" >ayyaz</div></small></p>
+                                        <p class="info-p"><small><span class="firebrick">Contact No:</span><div class="info-div" contenteditable="true"> 0321-4294339</div></small></p>
+                                        <p class="info-p"><small><span class="firebrick">Total Guests:</span><div class="info-div" contenteditable="true">340</div> </small></p>
+                                        <p class="info-p"><small><span class="firebrick">Total Expense:</span><div  class="info-div" contenteditable="true"> 34000</div></small></p>
+                                        <p class="info-p"><small><span class="firebrick">Total Amount:</span><div class="info-div" contenteditable="true"> 240000</div></small></p>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p class="info-p"><small><span class="firebrick">Total Advance:</span><div  class="info-div" contenteditable="true"> 100000</div></small></p>
+                                        <p class="info-p"><small><span class="firebrick">Hall:</span><div class="info-div" contenteditable="true"> A</div></small></p>
+                                        <p class="info-p"><small><span class="firebrick">Time Slot:</span><div class="info-div" contenteditable="true"> 12-4</div></small></p>
+                                        <p class="info-p"><small><span class="firebrick">Arrangements:</span><div class="info-div" contenteditable="true"> Music, Flower, Decor...</div></small></p>
+                                        <p class="info-p"><small><span class="firebrick">Menu:</span><div class="info-div" contenteditable="true" spellcheck="false"> Kourma, Biryani, Nan, Raita...</div></small></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button data-toggle="modal" class="btn btn-default cancel-btn"
+                                data-dismiss="modal">Cancel </button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div id="Events" class="modal fade" role="dialog"  data-backdrop='static'>
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title text-center" ><span class="firebrick">Monthly</span></h4>
+                    </div>
+                    <div class="container">
+                        <div class="modal-body">
+                            <button data-toggle="collapse" data-target="#demo" class="attendance-btn">November</button>
+
+                            <div id="demo" class="collapse">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h5>Date</h5>
+                                            {% for event in event_list %}
+                                            <a  href="{% url 'realapp:index' %}" name="pk" class="evlink" data-toggle="modal" data-dismiss="modal">{{ event.event_cust_info }}</a>
+                                            {% endfor %}
+                                            <h5>19th Nov, 2017</h5>
+                                            <a href="#Info"  class="evlink" data-toggle="modal" data-dismiss="modal">Zohaib Weds Annie</a>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <h5>11th Nov, 2017</h5>
+                                            <a href="#Info"  class="evlink" data-toggle="modal" data-dismiss="modal">Matee Weds Laila</a>
+                                            <h5>14th Nov, 2017</h5>
+                                            <a href="#Info"  class="evlink" data-toggle="modal" data-dismiss="modal">Kazim Weds Charsan</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button data-toggle="collapse" data-target="#demo1" class="attendance-btn">December</button>
+                            <div id="demo1" class="collapse">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h5>29th Nov, 2017</h5>
+                                            <a  href="#Info" class="evlink" data-toggle="modal" data-dismiss="modal">Thanda Weds Rasheeda</a>
+                                            <h5>19th Nov, 2017</h5>
+                                            <a href="#Info"  class="evlink" data-toggle="modal" data-dismiss="modal">Zohaib Weds Annie</a>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <h5>11th Nov, 2017</h5>
+                                            <a href="#Info"  class="evlink" data-toggle="modal" data-dismiss="modal">Matee Weds Laila</a>
+                                            <h5>14th Nov, 2017</h5>
+                                            <a href="#Info"  class="evlink" data-toggle="modal" data-dismiss="modal">Kazim Weds Charsan</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button data-toggle="collapse" data-target="#demo2" class="attendance-btn">January</button>
+                            <div id="demo2" class="collapse">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h5>29th Nov, 2017</h5>
+                                            <a  href="#Info" class="evlink" data-toggle="modal" data-dismiss="modal">Thanda Weds Rasheeda</a>
+                                            <h5>19th Nov, 2017</h5>
+                                            <a href="#Info"  class="evlink" data-toggle="modal" data-dismiss="modal">Zohaib Weds Annie</a>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <h5>11th Nov, 2017</h5>
+                                            <a href="#Info"  class="evlink" data-toggle="modal" data-dismiss="modal">Matee Weds Laila</a>
+                                            <h5>14th Nov, 2017</h5>
+                                            <a href="#Info"  class="evlink" data-toggle="modal" data-dismiss="modal">Kazim Weds Charsan</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button data-toggle="collapse" data-target="#demo3" class="attendance-btn">February</button>
+                            <div id="demo3" class="collapse">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h5>29th Nov, 2017</h5>
+                                            <a  href="#Info" class="evlink" data-toggle="modal" data-dismiss="modal">Thanda Weds Rasheeda</a>
+                                            <h5>19th Nov, 2017</h5>
+                                            <a href="#Info"  class="evlink" data-toggle="modal" data-dismiss="modal">Zohaib Weds Annie</a>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <h5>11th Nov, 2017</h5>
+                                            <a href="#Info"  class="evlink" data-toggle="modal" data-dismiss="modal">Matee Weds Laila</a>
+                                            <h5>14th Nov, 2017</h5>
+                                            <a href="#Info"  class="evlink" data-toggle="modal" data-dismiss="modal">Kazim Weds Charsan</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button data-toggle="modal" class="btn btn-default cancel-btn"
+                                data-dismiss="modal">Cancel </button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <div class="banner-top jarallax" id="banner-s">
+            <div class="header-top">
+                <div class="container">
+                    <div class="header-top-grids">
+                        <div class="header-top-left">
+                            <p><i class="fa fa-volume-control-phone" ></i> 042-3854712</p>
+                        </div>
+                        <div class="header-top-right">
+                            <div class="social-grids">
+                                <ul>
+                                    {% if user.is_authenticated %}
+                                    <form action="/logout/" method="post">
+                                    <button type="submit" class="btn-block view-all" name="logout">Logout</button>
+                                    </form>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                </div>
+            </div>
+            <div class="head">
+                <div class="container">
+                    <div class="navbar-top">
+
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <div class="navbar-brand logo ">
+                                <h1><a href="{% url 'index' %}">Rafi <span><strong>Banquet Hall</strong></span></a></h1>
+                            </div>
+
+                        </div>
+
+
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav link-effect-4">
+                                {% if user.username == "umar" %}
+                                <li class="active first-list"><a href="{% url 'index' %}">Home</a> </li>
+                                <li class="first-list"><a href="{% url 'realapp:ereport' %}">report</a> </li>
+                                <li><a id="gall" href="{% url 'realapp:gallery' %}">Gallery</a></li>
+                                <li><a href="{% url 'realapp:Events' %}">Events</a></li>
+                                <li><a href="{% url 'realapp:about' %}">Bookings</a> </li>
+                                <li ><a href="{% url 'realapp:Gen_Expense' %}" >Expenses</a></li>
+                                <li><a href="{% url 'realapp:employee' %}">Employees</a></li>
+                                <li><a href="{% url 'realapp:contact' %}">Contact</a></li>
+                                {% elif user.username == "matee" %}
+                                <li class="active first-list"><a href="{% url 'index' %}">Home</a> </li>
+                                <li class="first-list"><a href="{% url 'realapp:ereport' %}">report</a> </li>
+                                <li><a href="{% url 'realapp:gallery' %}">Gallery</a></li>
+                                <li><a href="{% url 'realapp:Events' %}">Events</a></li>
+                                <li><a href="{% url 'realapp:about' %}">Bookings</a> </li>
+                                <li ><a href="{% url 'realapp:Gen_Expense' %}" >Expenses</a></li>
+                                <li><a href="{% url 'realapp:contact' %}">Contact</a></li>
+                                {% else %}
+                                <li class="active first-list"><a href="{% url 'index' %}">Home</a> </li>
+                                <li><a id="gall" href="{% url 'realapp:gallery' %}">Gallery</a></li>
+                                <li><a id="login" href="{% url 'realapp:login1' %}">Login</a></li>
+                                <li><a href="{% url 'realapp:contact' %}">Contact</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-adjustment">
+                <div class="banner-slider">
+                    <div class="container">
+                        <div class="slider">
+                            <div class="callbacks_container">
+                                <ul class="rslides callbacks callbacks1" id="slider4">
+                                    <li>
+                                        <div class="banner-info">
+                                            <h3>Wedding Events</h3>
+                                            <p> Your Wedding is a “Once in a Lifetime” event and everything needs to be Perfect!
+                                                Therefore, we personally promise to go above and beyond the call of duty in order to make your wedding day everything you’ve ever dreamed.</p>
+                                            <div class="button">
+                                                <div class="button">
+                                                    <a href="single.html">More</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="banner-info">
+                                            <h3>Birthday Parties</h3>
+                                            <p> The perfect thematic birthday party setup for your next birthday party, and manages according to your desire budget. The Rafi Banquet Hall manages this party according to your budget and your requirement to present you a wonderful day. </p>
+                                            <div class="button">
+                                                <div class="button">
+                                                    <a href="single.html">More</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="banner-info">
+                                            <h3>Corporate Events</h3>
+                                            <p>There are many types of events to choose from, Anniversaries, Gettogether & Office Parties. If you are looking to organize Corporate Events in Pakistan, Rafi Banquet Hall is providing you the best services under your budget line.</p>
+                                            <div class="button">
+                                                <div class="button">
+                                                    <a href="single.html">More</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="clearfix"> </div>
+                            <script>
+                                // You can also use "$(window).load(function() {"
+                                $(function () {
+                                    // Slideshow 4
+                                    $("#slider4").responsiveSlides({
+                                        auto: true,
+                                        pager:true,
+                                        nav:false,
+                                        speed: 500,
+                                        namespace: "callbacks",
+                                        before: function () {
+                                            $('.events').append("<li>before event fired.</li>");
+                                        },
+                                        after: function () {
+                                            $('.events').append("<li>after event fired.</li>");
+                                        }
+                                    });
+
+
+
+
+                                });
+
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% if messages %}
+        {% for message in messages %}
+         <div class="modal fade" id="msgModal" role="dialog" style="margin-top:100px; color:black;">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content" style="background:white;">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" style="color:black,:hover color:firebrick;">&times;</button>
+                        <h4 class="modal-title">Message:</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{message}}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button data-toggle="modal" class="btn btn-default cancel-btn"
+                                data-dismiss="modal">Close </button>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+
+                 $('#msgModal').modal('show');
+
+        </script>
+
+        <div class="welcome">
+            <div class="container">
+                <div class="heading-grid">
+                    <h2>Welcome</h2>
+                    <div class="heading-border"> </div><br>
+                    <p>Rafi Banquet Hall is providing catering for your parties and weddings in Lahore , Pakistan. We specialize in weddings, parties, corporate events and much more. We use our expertise to create powerful impressions in all of our endeavors, to make your event leave a lasting impression for years to come. We are able to provide a variety of different services, to maximize productivity and results. Our experienced team is instilled with values of integrity, trust, dedication and most importantly a love for what we do. Let us make your next event everything you dream of and more.</p>
+                </div>
+
+            </div>
+        </div>
+        <!-- //welcome -->
+
+
+        <!-- choose-us -->
+        <div class="why-choose">
+            <div class="container">
+                <div class="heading-grid">
+                    <h3>Why Choose Us</h3>
+                    <div class="heading-border"> </div><br>
+                </div>
+                <div class="why-choose-grids">
+                    <div class="col-md-4 agileits-w3layouts-grid">
+                        <div class="why_us">
+                            <div class="col-xs-9 why-text">
+                                <h4>Standard</h4>
+                                <p>We provide complete services with standard and quality.</p>
+                            </div>
+                            <div class="col-xs-3 why-text">
+                                <div class="wthree_features_grid hvr-rectangle-out">
+                                    <i class="fa fa-glass" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="why_us">
+                            <div class="col-xs-9 why-text">
+                                <h4>Decors</h4>
+                                <p>We provide one of the finest and elegant decors.</p>
+                            </div>
+                            <div class="col-xs-3 why-text">
+                                <div class="wthree_features_grid hvr-rectangle-out">
+                                    <i class="fa fa-gift" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="why_us">
+                            <div class="col-xs-9 why-text">
+                                <h4>Hospitality</h4>
+                                <p>We'll look everything for you to make your event memorable</p>
+                            </div>
+                            <div class="col-xs-3 why-text">
+                                <div class="wthree_features_grid hvr-rectangle-out">
+                                    <i class="fa fa-heart" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 agileits-w3layouts-grid img">
+                        <img src="{% static 'images/IMG_1040.jpg' %}" alt=" " class="img-responsive" />
+                    </div>
+                    <div class="col-md-4 agileits-w3layouts-grid">
+                        <div class="why_us">
+                            <div class="col-xs-3 why-text agile-icon-left">
+                                <div class="wthree_features_grid hvr-rectangle-out">
+                                    <i class="fa fa-picture-o" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-9 why-text two">
+                                <h4>Portfolio</h4>
+                                <p>We Capture your memories</p>
+                            </div>
+
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="why_us">
+                            <div class="col-xs-3 why-text agile-icon-left">
+                                <div class="wthree_features_grid hvr-rectangle-out">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-9 why-text two">
+                                <h4>Customer Satisfaction</h4>
+                                <p>We save your time and money</p>
+                            </div>
+
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="why_us">
+                            <div class="col-xs-3 why-text agile-icon-left">
+                                <div class="wthree_features_grid hvr-rectangle-out">
+                                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-9 why-text two">
+                                <h4>Reviews</h4>
+                                <p>We care for your reviews to improve our services</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+        <!-- //choose-us -->
+
+
+
+        <!-- popular -->
+        <div class="popular-section jarallax">
+            <div class="agileinfo-dot">
+                <div class="container">
+                    <div class="heading-grid">
+                        <h3 style="color:white;">Popular Services</h3>
+                        <div class="heading-border"> </div>
+                    </div>
+                    <div class="popular-info">
+                        <div class="col-md-3 popular-grid">
+                            <i class="fa fa-glass" aria-hidden="true"></i>
+                            <h4>Food</h4>
+                            <p>Fresh Food with Great Quality</p>
+                        </div>
+                        <div class="col-md-3 popular-grid">
+                            <i class="fa fa-video-camera" aria-hidden="true"></i>
+                            <h4>Photoshoots</h4>
+                            <p>Decent And Nice Photoshoots</p>
+                        </div>
+                        <div class="col-md-3 popular-grid popular-grid-bottom">
+                            <i class="fa fa-book" aria-hidden="true"></i>
+                            <h4>Decors</h4>
+                            <p>Elegant and Beautiful Decorations </p>
+                        </div>
+                        <div class="col-md-3 popular-grid">
+                            <i class="fa fa-music" aria-hidden="true"></i>
+                            <h4>Live Music</h4>
+                            <p>Soothing Music or Dj Party</p>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //popular -->
+
+        <!-- news -->
+       <div class="news">
+            <div class="container">
+                <div class="heading-grid">
+                    <h3>News & Events</h3>
+                    <div class="heading-border"> </div> <br>
+                </div>
+                <div class="news-grids">
+                    <div class="col-md-6 news-left">
+                        <div class="news-img">
+                            <img src="{% static 'images/e1.jpg' %}" style="width:540px;">
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="col-md-6 news-right">
+                        <div class="news-right-grid">
+                            <a href="#Info" data-toggle="modal">Zohaib weds lal bahadur</a>
+                            <h5>06th Nov,2017</h5>
+                            <p><small>Total Guests: 340</small></p>
+                            <p><small>Arrangements: Music, Flower, Decor...</small></p>
+                            <p><small>Menu: Kourma, Biryani, Nan, Raita...</small></p>
+                        </div>
+                        <div class="news-right-grid">
+                            <a href="#Info" data-toggle="modal">Matee weds Rukhsana</a>
+                            <h5>17th Nov,2017</h5>
+                            <p><small>Total Guests: 340</small></p>
+                            <p><small>Arrangements: Music, Flower, Decor...</small></p>
+                            <p><small>Menu: Kourma, Biryani, Nan, Raita...</small></p>
+                        </div>
+                        <div class="news-right-grid">
+                            <a href="Info" data-toggle="modal">Thanda Weds Rasheeda</a>
+                            <h5>29th Nov,2017</h5>
+                            <p><small>Total Guests: 340</small></p>
+                            <p><small>Arrangements: Music, Flower, Decor...</small></p>
+                            <p><small>Menu: Kourma, Biryani, Nan, Raita...</small></p>
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                    <a href="{% url 'realapp:Events' %}" data-toggle="modal" ><button class="btn-block view-all pull-right" style="width:17%;" >View All</button></a>
+                </div>
+            </div>
+        </div>
+        <!-- //news -->
+
+        <!-- //news -->
+
+        <!-- footer -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer_grids">
+
+                    <div class="col-md-6 footer_grid">
+                        <h3>Contact Info</h3>
+                        <ul>
+                            <li><i class="fa fa-map-marker" aria-hidden="true"></i> Klarak Abad Road near Govt.Hospital Kot Radha Kishen <span>Lahore, Pakistan.</span></li>
+                            <li><i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:rafibanquet16@gmail.com">rafibanquet16@gmail.com</a></li>
+                            <li><i class="fa fa-phone" aria-hidden="true"></i> 042-3854712</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 footer_grid footer_grid1">
+                        <h3>Navigation</h3>
+                        <ul>
+                            <li><i class="fa fa-angle-right" aria-hidden="true"></i> <a href="about.html">About</a></li>
+                            <li><i class="fa fa-angle-right" aria-hidden="true"></i> <a href="gallery.html">Gallery</a></li>
+                            <li><i class="fa fa-angle-right" aria-hidden="true"></i> <a href="blog.html">Blog</a></li>
+                            <li><i class="fa fa-angle-right" aria-hidden="true"></i> <a href="icons.html">Icons</a></li>
+                            <li><i class="fa fa-angle-right" aria-hidden="true"></i> <a href="codes.html">Short Codes</a></li>
+                            <li><i class="fa fa-angle-right" aria-hidden="true"></i> <a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+        <!-- //footer -->
+
+
+
+        <!-- copyright -->
+        <div class="copyright">
+            <div class="container">
+                <p>© 2018 Rafi Banquet Hall. All rights reserved | Design by <a href="https://www.blendcodes.com/" target="_blank">BlendCodes Technologies</a></p>
+            </div>
+        </div>
+        <!-- //copyright -->
+
+
+
+
+
+        <script src="{% static 'js/jarallax.js' %}"></script>
+        <script src="{% static 'js/SmoothScroll.min.js' %}"></script>
+        <script type="text/javascript">
+            /* init Jarallax */
+            $('.jarallax').jarallax({
+                speed: 0.5,
+                imgWidth: 1366,
+                imgHeight: 768
+            })
+        </script>
+        <script src="{% static 'js/responsiveslides.min.js' %}"></script>
+
+        <script type="text/javascript" src="{% static 'js/easing.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/move-top.js' %}"></script>
+
+        <!-- here stars scrolling icon -->
+        <script type="text/javascript">
+            $(document).ready(function() {
+                /*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear'
+				};
+			*/
+
+                $().UItoTop({ easingType: 'easeOutQuart' });
+
+            });
+        </script>
+        <!-- //here ends scrolling icon -->
+    </body>
+</html>

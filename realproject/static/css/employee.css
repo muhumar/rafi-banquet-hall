@@ -1,0 +1,81 @@
+/*-- blog --*/
+.blog {
+    padding: 4em 0;
+    background:#111;
+}
+
+.agile-blog-grid:nth-child(2){
+	margin:2em 0;
+}
+
+.anar{
+    background: #fff;
+    color: #454545;
+    height: 38px;
+    padding-left: 14px;
+    padding-top: 4px;
+    border: 1px solid white;
+    border-radius: 2px;
+
+}
+.anari{
+    border: 1px solid red;
+    color: black;
+}
+.v-center {
+  min-height:200px;
+  display: flex;
+  justify-content:center;
+  flex-flow: column wrap;
+}
+.markall{
+    margin-right: 5px;
+}
+.list_headings{
+    margin-right: 70px;
+    font-size: 13px;
+}
+.row_data{
+    margin-right: 95px;
+    font-size: 13px;
+}
+.row_data2{
+    margin-right: 65px;
+    font-size: 13px;
+}
+#backcolor{
+ background: #212121;
+ color: #999; 
+ border: solid 1px black;
+ box-sizing: border-box;
+}
+
+#list1 a.record{
+    font-size: 13px;
+}
+#list1 a.record:hover{
+    background: #fff;
+    margin: 10px 0;
+    opacity:1;
+    color: #212121;
+    font-size: 15px;
+    transition: 0.5s all;
+}
+.pagination {
+    margin: 4em 0 0 0;
+}
+.pagination > li > a, .pagination > li > span {
+    color: #999;
+    background: #212121;
+    border: solid 1px black;
+}
+
+.pagination > li > a:hover, .pagination > li > span:hover {
+    color: firebrick;
+    background: #212121;
+    border: solid 1px black;
+}
+
+
+
+/*-- //blog --*/

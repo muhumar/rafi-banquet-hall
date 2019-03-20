@@ -1,0 +1,38 @@
+      .booking-top{
+    background: #111;
+    background: url(../images/Bokeh-City-Lights.jpg);
+    padding: 50px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.booking-info{
+    width: 100%;
+	margin: 0 auto;
+	text-align: left;
+	/*--agileinfo--*/
+	/*--wthree--*/
+	background-color: rgba(0, 0, 0, 0.8);
+    padding: 25px;
+
+
+}
+.info{
+    width: 91%;
+	margin: 0 auto;
+	text-align: left;
+	/*--agileinfo--*/
+	/*--wthree--*/
+	background-color: rgba(0, 0, 0, 0.8);
+    padding: 7px;
+    margin-bottom: 10px;
+
+}
+
+body{
+    background: #111;
+}
+
+.event a {
+    background-color: #5FBA7D !important;
+    color: #ffffff !important;
+}

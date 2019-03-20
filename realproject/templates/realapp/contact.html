@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+
+    <head>
+        <title>Rafi Banquet Hall| Contact </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+
+
+        <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css" media="all" />
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="all" />
+        <link rel="stylesheet" href="{% static 'css/contact.css' %}" type="text/css" media="all" />
+        <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
+
+
+        <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.js' %}"></script>
+    </head>
+
+    <body>
+
+        <!-- Modal Windows -->
+
+        <div id="Daily_Expenses" class="modal fade" role="dialog"  data-backdrop='static'>
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Daily Expenses</h4>
+                    </div>
+                    <div class="container">
+                        <div class="modal-body">
+
+                            <div class="col-md-7 expense-form">
+                                <div class="form-container">
+                                    <form action="{% url 'realapp:add_daily_expense' %}" method="post">
+                                        <input type="text" name="date" value="{{expense_date}}" placeholder="Date" required="">
+                                        <br><br>
+                                       <input type="text" name="expense_title" value="{{expense_title}}" placeholder="Title" required="">
+                                        <input type="number" min="0" class="email" name="expense_amount" value="{{expense_amount}}" placeholder="Amount" required=""><div class="clearfix"></div>
+                                        <textarea placeholder="Details" name="details" required=""></textarea><div class="clearfix"></div>
+                                        <div class="row">
+                                            <div class="col-sm-offset-3 col-sm-4">
+                                                <input type="submit" class="btn-block" value="SUBMIT">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-default cancel-btn" href="{% url 'realapp:Gen_Expense' %}">View All</a>
+                         <button data-toggle="modal" class="btn btn-default cancel-btn"
+                           data-dismiss="modal">Cancel </button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <!-- //Modal Windows -->
+
+        <!-- banner -->
+        <div class="banner-top jarallax">
+            <div class="header-top">
+                <div class="container">
+                    <div class="header-top-grids">
+                        <div class="header-top-left">
+                            <p><i class="fa fa-volume-control-phone" aria-hidden="true"></i> +1 234 567 8901</p>
+                        </div>
+                        <div class="header-top-right">
+                            <div class="social-grids">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                </div>
+            </div>
+            <div class="head">
+                <div class="container">
+                    <div class="navbar-top">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <div class="navbar-brand logo ">
+                                <h1><a href="{% url 'index' %}">Rafi<span>Banquet Hall</span></a></h1>
+                            </div>
+
+                        </div>
+
+
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav link-effect-4">
+                                {% if user.is_authenticated %}
+                                <li class="active first-list"><a href="{% url 'index' %}">Home</a> </li>
+                                <li class="first-list"><a href="{% url 'realapp:ereport' %}">report</a> </li>
+                                <li><a href="{% url 'realapp:gallery' %}">Gallery</a></li>
+                                <li><a href="{% url 'realapp:Events' %}">Events</a></li>
+                                <!--<li><a href="{% url 'realapp:login1' %}">Login</a></li>li>-->
+                                <li><a href="{% url 'realapp:about' %}">Bookings</a> </li>
+                                <li >
+                                    <a href="{% url 'realapp:Gen_Expense' %}" >Expenses</a></li>
+                                <li><a href="{% url 'realapp:employee' %}">Employees</a></li>
+                                <li><a href="{% url 'realapp:contact' %}">Contact</a></li>
+                                {% else %}
+                                <li class="active first-list"><a href="{% url 'index' %}">Home</a> </li>
+                                <li><a href="{% url 'realapp:gallery' %}">Gallery</a></li>
+                                <li><a href="{% url 'realapp:login1' %}">Login</a></li>li>
+                                <li><a href="{% url 'realapp:contact' %}">Contact</a></li>
+                                {% endif %}
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </div>
+                </div>
+            </div>
+            <div class="agileinfo-banner">
+                <div class="container">
+                    <h2>Contact Us</h2>
+                </div>
+            </div>
+        </div>
+        <!-- //banner -->
+
+
+        <!-- contact -->
+        <div class="contact-top">
+            <div class="container">
+                <div class="contact-grids">
+                    <div class="col-md-7 contact-form">
+                        <form action="#" method="post">
+                            <input type="text" name="Name" placeholder="Name" required="">
+                            <input type="email" class="email" name="Email" placeholder="Email" required="">
+                            <textarea placeholder="Message" name="Message" required=""></textarea>
+                            <input type="submit" value="SUBMIT">
+                        </form>
+                    </div>
+                    <div class="col-md-4 contact-right">
+                        <div class="contact-text">
+                            <h4>Working Hours :</h4>
+                            <p> Monday – Saturday 10:00 a.m – 07:00 p.m </p>
+                            <p><span class="glyphicon glyphicon-earphone"></span> 042-3854712 </p>
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+            <br>
+            <div class="heading-border-2"></div>
+        </div>
+        <div class="map-section">
+            <div class="map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d218212.22950230291!2d74.06075834186807!3d31.288095595359085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x39184e03bad24c0b%3A0x3e41eaf82a1f8fc!2sRafi+Banquet+Hall%2C+Kot+Radha+Kishan%2C+Pakistan!3m2!1d31.1742368!2d74.1159368!5e0!3m2!1sen!2sin!4v1506866369072" width="800" height="600" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div><br>
+            <div class="heading-border-2"></div>
+        </div>
+        <!-- //contact -->
+
+
+
+        <!-- footer -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer_grids">
+                    <div class="col-md-4 footer_grid">
+                        <h3>About Us</h3>
+                        <p>Rafi Banquet Hall is providing catering for your parties and weddings in Lahore , Pakistan. We specialize in weddings, parties, corporate events and much more</p>.
+                        <p>Our experienced team is instilled with values of integrity, trust, dedication and most importantly a love for what we do. Let us make your next event everything you dream of and more.</p>
+                    </div>
+
+                    <div class="col-md-4 footer_grid">
+                        <h3>Contact Info</h3>
+                        <ul>
+                            <li><i class="fa fa-map-marker" aria-hidden="true"></i> Clark Abbad Road near Govt.Hospital Kot Radha Kishen <span>Lahore, Pakistan.</span></li>
+                            <li><i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:rafibanquet16@gmail.com">rafibanquet16@gmail.com</a></li>
+                            <li><i class="fa fa-phone" aria-hidden="true"></i> 042-3854712</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 footer_grid footer_grid1">
+                        <h3>Navigation</h3>
+                        <ul>
+                            <li><i class="fa fa-angle-right" aria-hidden="true"></i> <a href="about.html">About</a></li>
+                            <li><i class="fa fa-angle-right" aria-hidden="true"></i> <a href="blog.html">Blog</a></li>
+                            <li><i class="fa fa-angle-right" aria-hidden="true"></i> <a href="icons.html">Icons</a></li>
+                            <li><i class="fa fa-angle-right" aria-hidden="true"></i> <a href="codes.html">Short Codes</a></li>
+                            <li><i class="fa fa-angle-right" aria-hidden="true"></i> <a href="gallery.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+        <!-- //footer -->
+
+        <!-- copyright -->
+        <div class="copyright">
+            <div class="container">
+                <p>© 2018 Rafi Banquet Hall. All rights reserved | Design by <a href="www.blendcodes.com">BlendCodes Technologies</a></p>
+            </div>
+        </div>
+        <!-- //copyright -->
+
+
+
+        <script src="{% static 'js/SmoothScroll.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/easing.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/move-top.js' %}"></script>
+        <!-- here stars scrolling icon -->
+        <script type="text/javascript">
+            $(document).ready(function() {
+                /*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear'
+				};
+			*/
+
+                $().UItoTop({ easingType: 'easeOutQuart' });
+
+            });
+        </script>
+        <!-- //here ends scrolling icon -->
+    </body>
+</html>

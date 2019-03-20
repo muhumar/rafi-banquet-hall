@@ -1,0 +1,21 @@
+.cost_i{
+    height:40px;
+    margin-right: 0;
+    border: 1px solid white;
+    margin-top:30px;
+}
+.costs{
+
+    border: 1px solid white;
+}
+.lab{
+    margin-top:10px;
+    color: white;
+}
+.arrangements-wrapper-2 {
+    display: block;
+    max-height: 200px;
+    position: relative;
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}

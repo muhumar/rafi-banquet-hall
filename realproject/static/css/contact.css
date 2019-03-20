@@ -1,0 +1,133 @@
+/*-- contact --*/ 
+
+.contact-top{
+    background: #111;
+}
+.contact-form input[type="text"],.contact-form input[type="email"] {
+    width: 47.7%;
+    color: #999;
+    float: left;
+    background: white;
+    outline: none;
+    font-size: .9em;
+    padding: .7em 1em;
+    margin-bottom: 1.5em;
+    border: solid 1px #999;
+    -webkit-appearance: none;
+    display: inline-block;
+}
+.contact-form  input.email {
+    margin: 0 0 0 1.8em;
+    background: white;
+}
+.contact-form textarea {
+    resize: none;
+    width: 100%;
+    background: white;
+    color: #999;
+    font-size: .9em;
+    outline: none;
+    padding: .6em .8em;
+    border: solid 1px #999;
+    min-height: 12em;
+    -webkit-appearance: none;
+}
+.contact-form input[type="submit"] {
+	outline: none;
+    color: #FFFFFF;
+    padding: 0.5em 2em;
+    font-size: .9em;
+    margin: 1em 0 0 0;
+    -webkit-appearance: none;
+    background: firebrick;
+    border-radius: 5px;
+    transition: 0.5s all;
+    border: 2px solid #111;
+    -webkit-transition: 0.5s all;
+    transition: 0.5s all;
+    -moz-transition: 0.5s all;
+}
+.contact-form  input[type="submit"]:hover {
+    color: firebrick;
+	background:none;
+	border: 2px solid #212121;
+}
+::-webkit-input-placeholder {
+	color:#999 !important;
+}
+:-moz-placeholder { /* Firefox 18- */
+	color:#999 !important;
+}
+::-moz-placeholder {  /* Firefox 19+ */
+	color:#999 !important;
+}
+:-ms-input-placeholder {  
+	color:#999 !important;
+}
+.contact-right h4 {
+    font-size: 1.5em;
+    color: #fff;
+    line-height: 1.8em;
+}
+.contact-text {
+    background: #212121;
+    padding: 2em;
+}
+.contact-right h4 {
+    font-size: 1.8em;
+    color: #FFFFFF;
+}
+.contact-text p {
+    color: #fff;
+    font-size: .9em;
+    margin-top: 0.8em;
+    text-align: left;
+}
+/*-- map --*/
+
+.map-section{
+    background: #111;
+    padding: 100px;
+}
+
+.map {
+    position: relative;
+    
+}
+.map iframe {
+    width: 100%;
+    min-height: 500px;
+    border: none;
+}
+.address {
+    position: absolute;
+    top: 17%;
+    background: #FF5722;
+    padding: 4em;
+    text-align: left;
+    width: 26%;
+    left: 39%;
+}
+
+.address h4 {
+    font-size: 2em;
+    color: #fff;
+    margin-bottom: 0.5em;
+}
+.address p {
+    color: #fff;
+    margin-bottom: .6em;
+    text-align: left;
+	font-size:.9em;
+}
+.address p a {
+    font-size: .9em;
+    color: #191d20;
+}
+.address p a:hover { 
+    color: #fff;
+}
+.map .social-icons li a {
+    margin-right: 0.1em;
+}
+/*-- //contact --*/

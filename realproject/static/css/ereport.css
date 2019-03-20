@@ -1,0 +1,40 @@
+.table-wrapper-2 {
+    display: block;
+    max-height: 500px;
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+.font{
+    color: white;
+    text-align: center;
+}
+
+.font2{
+    color: white;
+    font-weight: 600;
+    margin-right: 5px;
+}
+.font3{
+    color: white;
+    margin-bottom: 5px;
+}
+.font4{
+    color: white;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+textarea {
+    color:white;
+    background:#111;
+    margin:0;
+    padding:0;
+    border:0px solid #111;
+    width:210px;
+}
+input{
+    color:white;
+    background:#111;
+    margin:0;
+    padding:0;
+    border:0px solid #111;
+}

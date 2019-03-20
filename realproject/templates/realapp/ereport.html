@@ -1,0 +1,358 @@
+
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+    <head>
+        <title>Reports</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+
+        <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css" media="all" />
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="all" />
+        <link rel="stylesheet" href="{% static 'css/employee.css' %}" type="text/css" media="all" />
+         <link rel="stylesheet" href="{% static 'css/ereport.css' %}" type="text/css" media="all" />
+        <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
+
+
+        <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+        <script src="{% static 'js/expense.js' %}"></script>
+        <script src="{% static 'js/bootstrap.js' %}"></script>
+
+    </head>
+    <body>
+
+
+        <div id="Daily_Expenses" class="modal fade" role="dialog"  data-backdrop='static'>
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Daily Expenses</h4>
+                    </div>
+                    <div class="container">
+                        <div class="modal-body">
+
+                            <div class="col-md-7 expense-form">
+                                <div class="form-container">
+                                    <form action="{% url 'realapp:add_daily_expense' %}" method="post">
+                                        <input type="text" name="date" value="{{expense_date}}" placeholder="Date" required="">
+                                        <br><br>
+                                        <input type="text" name="expense_title" value="{{expense_title}}" placeholder="Title" required="">
+                                        <input type="number" min="0" class="email" name="expense_amount" value="{{expense_amount}}" placeholder="Amount" required=""><div class="clearfix"></div>
+                                        <textarea placeholder="Details" name="details" required=""></textarea><div class="clearfix"></div>
+                                        <div class="row">
+                                            <div class="col-sm-offset-3 col-sm-4">
+                                                <input type="submit" class="btn-block" value="SUBMIT">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-default cancel-btn" href="{% url 'realapp:Gen_Expense' %}">View All</a>
+                        <button data-toggle="modal" class="btn btn-default cancel-btn"
+                                data-dismiss="modal">Cancel </button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <!-- banner -->
+        <div class="banner-top jarallax">
+            <div class="header-top">
+                <div class="container">
+                    <div class="header-top-grids">
+                        <div class="header-top-left">
+                            <p><i class="fa fa-volume-control-phone" aria-hidden="true"></i> 042-3854712</p>
+                        </div>
+                        <div class="header-top-right">
+                            <div class="social-grids">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                </div>
+            </div>
+            <div class="head">
+                <div class="container">
+                    <div class="navbar-top">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <div class="navbar-brand logo ">
+                                <h1><a href="{% url 'index' %}">Rafi <span>Banquet Hall</span></a></h1>
+                            </div>
+
+                        </div>
+
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav link-effect-4">
+                                <li class="first-list"><a href="{% url 'index' %}">Home</a> </li>
+                                <li class="first-list"><a href="{% url 'realapp:ereport' %}">report</a> </li>
+                                <li><a href="{% url 'realapp:Events' %}">Events</a></li>
+                                <li><a href="{% url 'realapp:gallery' %}">Gallery</a></li>
+                                <li><a href="{% url 'realapp:about' %}">Bookings</a> </li>
+
+                                <li >
+                                    <a href="{% url 'realapp:Gen_Expense' %}" >Expenses</a></li>
+                                <li class="active"><a href="{% url 'realapp:employee' %}">Employees</a></li>
+                                <li><a href="{% url 'realapp:contact' %}">Contact</a></li>
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </div>
+                </div>
+            </div>
+            <div class="agileinfo-banner">
+                <div class="container">
+                    <h2>Events Report</h2>
+                </div>
+            </div>
+        </div>
+        <!-- //banner -->
+
+
+      <!-- blog -->
+        <div class="blog">
+            <div class="heading-grid"><h3 style="color:#999;">Report</h3></div> <br>
+            <div class="heading-border"></div><br>
+
+            <div class="container">
+
+
+                <div class="agile-blog-grids">
+                    <div class="row">
+
+                        <div class="col-lg-12 " >
+                            <form id="sform" class="form-inline" action="{% url 'realapp:filter_event_reports' %}" method="post">
+                                <div class="form-group">
+                                    <label style="margin-right:10px;"><b>FROM:   </b></label>
+                                    <input type="text" class="form-control" id="Year1" placeholder="Year" style="width:80px;" name="year1" value="">
+                                </div>
+                                <div class="form-group" style="margin-left:20px;">
+
+                                    <select name="month1" class="form-control" placeholder="Month">
+
+                                        <option value="">Month</option>
+                                        <option value="01">January</option>
+                                        <option value="02">February</option>
+                                        <option value="03">March</option>
+                                        <option value="04">April</option>
+                                        <option value="05">May</option>
+                                        <option value="06">June</option>
+                                        <option value="07">July</option>
+                                        <option value="08">August</option>
+                                        <option value="09">September</option>
+                                        <option value="10">October</option>
+                                        <option value="11">November</option>
+                                        <option value="12">December</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" style="margin-left:20px">
+                                    <input type="text" class="form-control" id="Day" placeholder="Day" style="width:60px;" name="day1">
+                                </div>
+                                <div class="pull-right">
+                                <div class="form-group">
+                                    <label style="margin-right:10px; margin-left:40px;"><b>To:   </b></label>
+                                    <input type="text" class="form-control" id="Year2" placeholder="Year" name="year2" style="width:80px;">
+                                </div>
+                                <div class="form-group" style="margin-left:20px;">
+
+                                    <select name="month2" class="form-control" placeholder="Month">
+                                        <option value="">Month</option>
+                                        <option value="01">January</option>
+                                        <option value="02">February</option>
+                                        <option value="03">March</option>
+                                        <option value="04">April</option>
+                                        <option value="05">May</option>
+                                        <option value="06">June</option>
+                                        <option value="07">July</option>
+                                        <option value="08">August</option>
+                                        <option value="09">September</option>
+                                        <option value="10">October</option>
+                                        <option value="11">November</option>
+                                        <option value="12">December</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" style="margin-left:20px">
+                                    <input type="text" class="form-control" id="Day" name="day2" placeholder="Day" style="width:60px;">
+                                </div>
+                                </div>
+
+                            </form>
+                            <div class="clearfix"></div><br>
+                            <input class="btn btn-default cancel-btn pull-right" type="submit" name="submit" value="SUBMIT" form="sform">
+                            <div class="clearfix"></div>
+                            <br>
+                           <div class="input-group">
+                                <input class="form-control " id="myInput" type="text" placeholder="Search.." style="width:400px;">
+                                <div class="input-group-btn pull-left">
+                                    <button class="btn btn-default" id="ubtn" style="height:34px;background:#111;" onclick="update()">
+                                        <i class="glyphicon glyphicon-search pull-left" style="color:white;"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <br><br><br>
+                            {% for i in report_list %}
+                            <span class="col-lg-3 font3">Total Events:<span class="">{{i.t_events}}</span></span>
+                            <span class="col-lg-3 font3">Total Revenue:<span class="">{{i.t_revenue}}</span></span>
+                            <span class="col-lg-3 font3">Total Expense:<span class="">{{i.t_expense}}</span></span>
+                            <span class="col-lg-3 font3">Total Profit:<span class="">{{i.t_profit}}</span></span>
+                            {% endfor %}
+                            <br><br><br>
+                            <div class="table-wrapper-2">
+
+                                <!--Table-->
+                                <table class="table table-bordered  table-inverse table-responsive-md ">
+                                    <thead class="thead-inverse ">
+                                        <tr>
+                                            <th><span class="font">#</span></th>
+                                            <th class="col-lg-9 font"><span class="font">Details</span></th>
+                                            <th class="col-lg-1 font"><span class="font">Revenue</span></th>
+                                            <th class="col-lg-1 font"><span class="font">Expense</span></th>
+                                            <th class="col-lg-1 font"><span class="font">Profit</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="myTable">
+                                    {% for event in event_list %}
+                                        <tr>
+                                            <th scope="row"><span class="font">{{event.event_no}}</span></th>
+
+                                            <td><span class="col-lg-4 font3"><span class="font2 ">Name:</span>{{event.event_cust_name}}</span>
+                                                <span class="col-lg-4 font3"><span class="font2 ">Contact:</span>{{event.event_cust_contactno}}</span>
+                                                <span class="col-lg-4 font3"><span class="font2 ">CNIC:</span>{{event.event_cust_nic}}</span>
+                                                <span class="col-lg-4 font3"><span class="font2 ">Slot/Hall:</span>{{event.event_slot}} / {{event.event_hall}}</span>
+                                                <span class="col-lg-4 font3"><span class="font2 ">Total Guests:</span>{{event.event_total_guests}}</span>
+                                                <span class="col-lg-4 font3"><span class="font2 ">Payment Details:</span>{{event.event_payments_details}}</span>
+
+                                                <span class="col-lg-12 font3"><span class="font2 ">Date:</span>{{event.event_date}}</span>
+                                                <span class="col-lg-12 font3"><span class="font2 ">Arrangements:</span>{{event.arrange_details}}</span>
+                                                <span class="col-lg-12 font3"><span class="font2 ">Menu:</span>{{event.menu_details}}</span>
+                                            </td>
+
+                                            <td><span class="font">{{event.event_advance}}</span></td>
+                                            <td><span class="font">{{event.event_total_expense}}</span></td>
+                                            <td><span class="font">{{event.event_profit}}</span></td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                <!--Table-->
+
+                            </div>
+                            <script>
+                                $(document).ready(function(){
+                                    $("#myInput").on("keyup", function() {
+                                        var value = $(this).val().toLowerCase();
+                                        $("#myTable tr").filter(function() {
+                                            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                                        });
+                                    });
+                                });
+                            </script>
+                            <br><br>
+                            <div class="heading-border"></div>
+                            <br>
+                            {% for i in report_list1 %}
+                            <span class="col-lg-4 font4">Event Profit:  {{i.t_profit}}</span>
+                            <span class="col-lg-4 font4">General Expense:  {{i.gen_expense}}</span>
+                            <span class="col-lg-4 font4">Net Profit:  {{i.net_profit}}</span><br><br>
+                            {% endfor %}
+
+
+                            <div class="heading-border"></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <!-- //blog -->
+
+
+
+        <!-- footer -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer_grids">
+                    <div class="col-md-4 footer_grid">
+                        <h3>About Us</h3>
+                        <p>Rafi Banquet Hall is providing catering for your parties and weddings in Lahore , Pakistan. We specialize in weddings, parties, corporate events and much more</p>.
+                        <p>Our experienced team is instilled with values of integrity, trust, dedication and most importantly a love for what we do. Let us make your next event everything you dream of and more.</p>
+                    </div>
+
+                    <div class="col-md-4 footer_grid">
+                        <h3>Contact Info</h3>
+                        <ul>
+                            <li><i class="fa fa-map-marker" aria-hidden="true"></i> Clark Abbad Road near Govt.Hospital Kot Radha Kishen <span>Lahore, Pakistan.</span></li>
+                            <li><i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:rafibanquet16@gmail.com">rafibanquet16@gmail.com</a></li>
+                            <li><i class="fa fa-phone" aria-hidden="true"></i> 042-3854712</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 footer_grid footer_grid1">
+                        <h3>Navigation</h3>
+                        <ul>
+                            <li><i class="fa fa-angle-right" aria-hidden="true"></i> <a href="about.html">About</a></li>
+                            <li><i class="fa fa-angle-right" aria-hidden="true"></i> <a href="blog.html">Blog</a></li>
+                            <li><i class="fa fa-angle-right" aria-hidden="true"></i> <a href="icons.html">Icons</a></li>
+                            <li><i class="fa fa-angle-right" aria-hidden="true"></i> <a href="codes.html">Short Codes</a></li>
+                            <li><i class="fa fa-angle-right" aria-hidden="true"></i> <a href="gallery.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+        <!-- //footer -->
+
+        <!-- copyright -->
+        <div class="copyright">
+            <div class="container">
+                <p>© 2018 Rafi Banquet Hall. All rights reserved | Design by <a href="www.blendcodes.com">BlendCodes Technologies</a></p>
+            </div>
+        </div>
+        <!-- //copyright -->
+
+
+        <script src="{% static 'js/SmoothScroll.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/easing.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/move-top.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/attendance.js' %}"></script>
+
+        <!-- here stars scrolling icon -->
+        <script type="text/javascript">
+            $(document).ready(function() {
+                /*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear'
+				};
+			*/
+
+                $().UItoTop({ easingType: 'easeOutQuart' });
+
+            });
+        </script>
+        <!-- //here ends scrolling icon -->
+    </body>
+</html>
